@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>StoreStudentServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.StoreStudentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchStudentServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.SearchStudentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewStudentsServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.ViewStudentsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveStudentServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.RemoveStudentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NumberOfStudentsServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.NumberOfStudentsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StoreStudentServlet</servlet-name>
+        <url-pattern>/StoreStudentServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchStudentServlet</servlet-name>
+        <url-pattern>/SearchStudentServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewStudentsServlet</servlet-name>
+        <url-pattern>/ViewStudentsServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveStudentServlet</servlet-name>
+        <url-pattern>/RemoveStudentServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NumberOfStudentsServlet</servlet-name>
+        <url-pattern>/NumberOfStudentsServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet.do</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <security-constraint>
+        <display-name>TeacherConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>TeacherResources</web-resource-name>
+            <description>Resources available to the teacher</description>
+            <url-pattern>/num_students_outcome.jsp</url-pattern>
+            <url-pattern>/search_student.jsp</url-pattern>
+            <url-pattern>/delete_student.jsp</url-pattern>
+            <url-pattern>/ViewStudentsServlet.do</url-pattern>
+            <url-pattern>/NumberOfStudentsServlet.do</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>A teacher</description>
+            <role-name>Teacher</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>StudentConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>StudentResources</web-resource-name>
+            <description>Resources available to a student</description>
+            <url-pattern>/store_student.jsp</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>A student</description>
+            <role-name>Student</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>file</realm-name>
+        <form-login-config>
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/login_error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description>Role of a teacher</description>
+        <role-name>Teacher</role-name>
+    </security-role>
+    <security-role>
+        <description>Role of a student</description>
+        <role-name>Student</role-name>
+    </security-role>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/access_denied.jsp</location>
+    </error-page>
+</web-app>
